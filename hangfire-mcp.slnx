@@ -6,8 +6,11 @@
   </Configurations>
   <Folder Name="/samples/">
     <Project Path="samples/AppHost/AppHost.csproj" />
+    <Project Path="samples/HangfireJobs/HangfireJobs.csproj" />
+    <Project Path="samples/HangfireMCP/HangfireMCP.csproj" />
     <Project Path="samples/Web/Web.csproj" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Nall.Hangfire.Mcp/Nall.Hangfire.Mcp.csproj" />
   </Folder>
 </Solution>

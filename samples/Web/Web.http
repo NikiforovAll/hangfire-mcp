@@ -6,7 +6,7 @@ POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "typeName": "ITimeJob",
+    "typeName": "HangfireJobs.ITimeJob",
     "methodName": "ExecuteAsync"
 }
 
@@ -15,7 +15,7 @@ POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "typeName": "ITimeJobWithParameters",
+    "typeName": "HangfireJobs.ITimeJobWithParameters",
     "methodName": "ExecuteAsync",
     "parameters": {
         "userName": "John Doe"
@@ -27,7 +27,7 @@ POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "typeName": "ITimeJobWithParameters",
+    "typeName": "HangfireJobs.ITimeJobWithParameters",
     "methodName": "ExecuteAsync",
     "parameters": {
         "payload": {
@@ -36,7 +36,3 @@ Content-Type: application/json
         }
     }
 }
-
-###
-GET {{host}}/timeJob/
-Accept: application/json

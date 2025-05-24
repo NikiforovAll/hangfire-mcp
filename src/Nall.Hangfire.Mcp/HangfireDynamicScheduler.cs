@@ -1,20 +1,9 @@
-namespace Web;
+namespace Nall.Hangfire.Mcp;
 
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json;
-using Hangfire;
-
-public class JobDescriptor(
-    string typeName,
-    string methodName,
-    IDictionary<string, object>? parameters = null
-)
-{
-    public string TypeName { get; } = typeName;
-    public string MethodName { get; } = methodName;
-    public IDictionary<string, object>? Parameters { get; } = parameters;
-}
+using global::Hangfire;
 
 public class HangfireDynamicScheduler(IBackgroundJobClient client)
 {

@@ -14,9 +14,11 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.0" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.3.0" />
+    <PackageReference Include="Nall.ModelContextProtocol.Inspector.Aspire.Hosting" Version="0.6.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HangfireMCP\HangfireMCP.csproj" />
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
 

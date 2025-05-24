@@ -11,4 +11,9 @@
     <PackageReference Include="Hangfire.PostgreSql" Version="1.20.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Nall.Hangfire.Mcp\Nall.Hangfire.Mcp.csproj" />
+    <ProjectReference Include="..\HangfireJobs\HangfireJobs.csproj" />
+  </ItemGroup>
+
 </Project>

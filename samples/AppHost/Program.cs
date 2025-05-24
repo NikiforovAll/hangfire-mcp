@@ -19,4 +19,10 @@ var postgresDatabase = postgresServer
 
 builder.AddProject<Projects.Web>("web").WithReference(postgresDatabase).WaitFor(postgresDatabase);
 
+var mcp = builder
+    .AddProject<Projects.HangfireMCP>("hangfire-mcp")
+    .WithReference(postgresDatabase)
+    .WaitFor(postgresDatabase);
+builder.AddMCPInspector().WithSSE(mcp);
+
 builder.Build().Run();
