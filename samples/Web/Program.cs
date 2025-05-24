@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddHangfireServer();
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddTransient<ITimeJob, TimeJob>();
-builder.Services.AddTransient<IUserJob, UserJob>();
+builder.Services.AddTransient<ISendMessageJob, SendMessageJob>();
 builder.Services.AddHangfireMcp();
 builder.Services.AddProblemDetails();
 builder.Services.AddControllers();

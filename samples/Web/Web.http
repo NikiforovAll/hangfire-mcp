@@ -22,10 +22,13 @@ POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "jobName": "HangfireJobs.IUserJob",
+    "jobName": "HangfireJobs.ISendMessageJob",
     "methodName": "ExecuteAsync",
     "parameters": {
-        "userName": "John Doe"
+        "message": {
+            "subject": "Hello",
+            "text": "This is a test message."
+        }
     }
 }
 
@@ -34,12 +37,9 @@ POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "jobName": "HangfireJobs.IUserJob",
+    "jobName": "HangfireJobs.ISendMessageJob",
     "methodName": "ExecuteAsync",
     "parameters": {
-        "payload": {
-            "userName": "John Doe",
-            "age": 30
-        }
+        "text": "This is a test message for ISendMessageJob."
     }
 }
