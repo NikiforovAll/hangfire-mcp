@@ -38,6 +38,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Nall.Hangfire.Mcp\Nall.Hangfire.Mcp.csproj" />
+    <ProjectReference Include="..\HangfireJobs\HangfireJobs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="ModelContextProtocol" />
     <Using Include="ModelContextProtocol.Server" />
     <Using Include="System.ComponentModel" />

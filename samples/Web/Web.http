@@ -1,12 +1,19 @@
 @host = http://localhost:5296
 
 
+
+###
+GET {{host}}/jobs?searchTerm=IUserJob
+
+###
+GET {{host}}/jobs
+
 ###
 POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "typeName": "HangfireJobs.ITimeJob",
+    "jobName": "HangfireJobs.ITimeJob",
     "methodName": "ExecuteAsync"
 }
 
@@ -15,7 +22,7 @@ POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "typeName": "HangfireJobs.ITimeJobWithParameters",
+    "jobName": "HangfireJobs.IUserJob",
     "methodName": "ExecuteAsync",
     "parameters": {
         "userName": "John Doe"
@@ -27,7 +34,7 @@ POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "typeName": "HangfireJobs.ITimeJobWithParameters",
+    "jobName": "HangfireJobs.IUserJob",
     "methodName": "ExecuteAsync",
     "parameters": {
         "payload": {

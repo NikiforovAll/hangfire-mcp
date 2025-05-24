@@ -5,7 +5,24 @@ using System.Reflection;
 using System.Text.Json;
 using global::Hangfire;
 
-public class HangfireDynamicScheduler(IBackgroundJobClient client)
+public interface IHangfireDynamicScheduler
+{
+    /// <summary>
+    /// Enqueues a job based on the provided <see cref="JobDescriptor"/>.
+    /// </summary>
+    public string Enqueue(JobDescriptor descriptor, Assembly? assembly = null);
+
+    /// <summary>
+    /// Discovers jobs in the specified assembly.
+    /// </summary>
+    public IEnumerable<JobDescriptor> DiscoverJobs(
+        Func<Type, bool> nameSelector,
+        Func<Type, MethodInfo, bool>? methodSelector = null,
+        Assembly? assembly = null
+    );
+}
+
+public class HangfireDynamicScheduler(IBackgroundJobClient client) : IHangfireDynamicScheduler
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
@@ -21,8 +38,8 @@ public class HangfireDynamicScheduler(IBackgroundJobClient client)
         ArgumentNullException.ThrowIfNull(descriptor);
         assembly ??= Assembly.GetExecutingAssembly();
         var type =
-            assembly.GetType(descriptor.TypeName)
-            ?? throw new InvalidOperationException($"Type '{descriptor.TypeName}' not found.");
+            assembly.GetType(descriptor.JobName)
+            ?? throw new InvalidOperationException($"Type '{descriptor.JobName}' not found.");
 
         return type.IsInterface
             ? this.EnqueueByInterfaceName(type, descriptor.MethodName, descriptor.Parameters)
@@ -240,5 +257,113 @@ public class HangfireDynamicScheduler(IBackgroundJobClient client)
             genericEnqueue.Invoke(null, [client, lambda])
             ?? throw new InvalidOperationException("Failed to enqueue job")
         );
+    }
+
+    public IEnumerable<JobDescriptor> DiscoverJobs(
+        Func<Type, bool> nameSelector,
+        Func<Type, MethodInfo, bool>? methodSelector = null,
+        Assembly? assembly = null
+    )
+    {
+        assembly ??= Assembly.GetExecutingAssembly();
+        var results = new List<JobDescriptor>();
+
+        // Get all types from the assembly that match the name selector
+        var types = assembly
+            .GetTypes()
+            .Where(t => (t.IsClass || t.IsInterface) && nameSelector(t))
+            .ToList();
+
+        foreach (var type in types)
+        { // Get all public methods from the type, excluding standard Object methods
+            var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                .Where(m =>
+                    !m.IsSpecialName
+                    && // Exclude property getters/setters
+                    !IsStandardObjectMethod(m)
+                    && (methodSelector?.Invoke(type, m) ?? true)
+                ) // Exclude standard Object methods
+                .ToList();
+
+            foreach (var method in methods)
+            {
+                // Create parameter dictionary with default values
+                var paramDict = new Dictionary<string, object>();
+                foreach (var param in method.GetParameters())
+                {
+                    if (param.Name != null)
+                    {
+                        paramDict[param.Name] = CreateDefaultValue(param.ParameterType);
+                    }
+                }
+
+                results.Add(new JobDescriptor(type.FullName!, method.Name, paramDict));
+            }
+        }
+
+        return results;
+    }
+
+    private static bool IsStandardObjectMethod(MethodInfo method)
+    {
+        return method.DeclaringType == typeof(object)
+            || method.Name is "ToString" or "GetType" or "Equals" or "GetHashCode";
+    }
+
+    private static object CreateDefaultValue(Type type)
+    {
+        if (type == typeof(string))
+        {
+            return string.Empty;
+        }
+
+        if (type == typeof(int) || type == typeof(long) || type == typeof(short))
+        {
+            return 0;
+        }
+
+        if (type == typeof(double) || type == typeof(float) || type == typeof(decimal))
+        {
+            return 0.0;
+        }
+
+        if (type == typeof(bool))
+        {
+            return false;
+        }
+
+        if (type == typeof(Guid))
+        {
+            return Guid.Empty;
+        }
+
+        if (type == typeof(DateTime))
+        {
+            return DateTime.Now;
+        }
+
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
+        {
+            return Activator.CreateInstance(type)!;
+        }
+
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+        {
+            return Activator.CreateInstance(type)!;
+        }
+
+        if (type.IsClass && !type.IsAbstract && type != typeof(object))
+        {
+            try
+            {
+                return Activator.CreateInstance(type) ?? new object();
+            }
+            catch
+            {
+                return new object();
+            }
+        }
+
+        return new object();
     }
 }

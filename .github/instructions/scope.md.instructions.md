@@ -10,3 +10,7 @@
 * dynamic tool vs tool with complex schema
 
 * dynamic hangfire scheduling based on reflection
+
+* job discovery
+ * source generator
+ * low level mcp job definition
