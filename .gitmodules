@@ -1,0 +1,3 @@
+[submodule "src/Inspector.Aspire.Hosting/inspector"]
+	path = src/Inspector.Aspire.Hosting/inspector
+	url = https://github.com/modelcontextprotocol/inspector.git
