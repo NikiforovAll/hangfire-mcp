@@ -1,4 +1,4 @@
-# Hangfire MCP
+# Hangfire MCP [![Build](https://github.com/NikiforovAll/hangfire-mcp/actions/workflows/build.yml/badge.svg)](https://github.com/NikiforovAll/hangfire-mcp/actions/workflows/build.yml)
 
 Enqueue background jobs using Hangfire MCP server. In this case, MCP Server uses `IBackgroundJobClient` to enqueue jobs.
 

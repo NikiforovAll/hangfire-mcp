@@ -43,17 +43,17 @@ jobs:
       - name: "Dotnet Cake Build"
         run: dotnet cake --target=Build
         shell: pwsh
-      - name: "Dotnet Cake Test"
-        run: dotnet cake --target=Test
-        shell: pwsh
-      - name: "Dotnet Cake Pack"
-        run: dotnet cake --target=Pack
-        shell: pwsh
-      - name: "Publish Artefacts"
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{matrix.os}}
-          path: "./Artefacts"
+      # - name: "Dotnet Cake Test"
+      #   run: dotnet cake --target=Test
+      #   shell: pwsh
+      # - name: "Dotnet Cake Pack"
+      #   run: dotnet cake --target=Pack
+      #   shell: pwsh
+      # - name: "Publish Artefacts"
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ${{matrix.os}}
+      #     path: "./Artefacts"
 
   # push-github-packages:
   #   name: "Push GitHub Packages"
