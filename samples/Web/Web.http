@@ -1,13 +1,42 @@
-@Web_HostAddress = http://localhost:5296
+@host = http://localhost:5296
 
-POST {{Web_HostAddress}}/jobs/
+
+###
+POST {{host}}/jobs/
 Content-Type: application/json
 
 {
-    "typeName": "TimeJob",
+    "typeName": "ITimeJob",
     "methodName": "ExecuteAsync"
 }
 
 ###
-GET {{Web_HostAddress}}/timeJob/
+POST {{host}}/jobs/
+Content-Type: application/json
+
+{
+    "typeName": "ITimeJobWithParameters",
+    "methodName": "ExecuteAsync",
+    "parameters": {
+        "userName": "John Doe"
+    }
+}
+
+###
+POST {{host}}/jobs/
+Content-Type: application/json
+
+{
+    "typeName": "ITimeJobWithParameters",
+    "methodName": "ExecuteAsync",
+    "parameters": {
+        "payload": {
+            "userName": "John Doe",
+            "age": 30
+        }
+    }
+}
+
+###
+GET {{host}}/timeJob/
 Accept: application/json
