@@ -7,7 +7,10 @@ using HangfireJobs;
 using Nall.Hangfire.Mcp;
 
 [McpServerToolType]
-public class HangfireTool(IHangfireDynamicScheduler scheduler)
+public class HangfireTool(
+    IHangfireDynamicScheduler scheduler,
+    IBackgroundJobClient backgroundJobClient
+)
 {
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -88,5 +91,16 @@ public class HangfireTool(IHangfireDynamicScheduler scheduler)
             Type = jobData.Job?.Type?.FullName,
         };
         return JsonSerializer.Serialize(result, JsonOptions);
+    }
+
+    [McpServerTool(Name = "RequeueJob"), Description("Requeues an existing job by ID")]
+    [return: Description("The new job ID if successful, null if the original job was not found")]
+    public string? RequeueJob([Required, Description("The job ID to requeue")] string jobId)
+    {
+        ArgumentNullException.ThrowIfNull(jobId);
+
+        backgroundJobClient.Requeue(jobId);
+
+        return this.GetJobById(jobId);
     }
 }

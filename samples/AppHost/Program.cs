@@ -17,12 +17,13 @@ var postgresDatabase = postgresServer
         """
     );
 
-builder.AddProject<Projects.Web>("web").WithReference(postgresDatabase).WaitFor(postgresDatabase);
+builder.AddProject<Projects.Web>("server").WithReference(postgresDatabase).WaitFor(postgresDatabase);
 
 var mcp = builder
     .AddProject<Projects.HangfireMCP>("hangfire-mcp")
     .WithReference(postgresDatabase)
     .WaitFor(postgresDatabase);
-builder.AddMCPInspector().WithSSE(mcp);
+
+builder.AddMCPInspector().WithSSE(mcp).WithParentRelationship(mcp);
 
 builder.Build().Run();

@@ -10,9 +10,10 @@ builder.Services.AddTransient<ITimeJob, TimeJob>();
 builder.Services.AddTransient<ISendMessageJob, SendMessageJob>();
 builder.Services.AddHangfireMcp();
 builder.Services.AddProblemDetails();
-builder.Services.AddControllers();
 var app = builder.Build();
 app.UseHttpsRedirection();
+
+app.MapHangfireDashboard(string.Empty);
 
 app.MapPost(
     "/jobs",
@@ -43,7 +44,5 @@ app.MapGet(
         return Results.Ok(jobs);
     }
 );
-
-app.MapHangfireDashboard(string.Empty);
 
 app.Run();
