@@ -7,6 +7,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+
+  <PropertyGroup>
+    <PackageId>Nall.HangfireMCP</PackageId>
+    <PackAsTool>true</PackAsTool>
+    <ToolName>HangfireMCP</ToolName>
+    <ToolCommandName>HangfireMCP</ToolCommandName>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Product>HangfireMCP</Product>
+  </PropertyGroup>
+
   <!-- Uncomment to enable container publishing - https://learn.microsoft.com/en-us/dotnet/core/containers/sdk-publish -->
   <!-- <PropertyGroup>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>

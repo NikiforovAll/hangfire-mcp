@@ -7,6 +7,7 @@
   <Folder Name="/samples/">
     <Project Path="samples/AppHost/AppHost.csproj" />
     <Project Path="samples/HangfireJobs/HangfireJobs.csproj" />
+    <Project Path="samples/HangfireMCP.Standalone/HangfireMCP.Standalone.csproj" />
     <Project Path="samples/HangfireMCP/HangfireMCP.csproj" />
     <Project Path="samples/Web/Web.csproj" />
   </Folder>

@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "hangfire-mcp-standalone": {
+      "type": "stdio",
+      "command": "HangfireMCP",
+      "args": [
+        "--stdio"
+      ],
+      "env": {
+        "HANGFIRE_JOBS_ASSEMBLY": "C:\\Users\\Oleksii_Nikiforov\\dev\\hangfire-mcp\\samples\\HangfireMCP.Standalone\\bin\\Debug\\net9.0\\HangfireJobs.dll",
+        "HANGFIRE_JOBS_MATCH_EXPRESSION": "[?IsInterface && contains(Name, 'Job')]",
+        "HANGFIRE_CONNECTION_STRING": "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=hangfire"
+      }
+    }
+  }
+}
