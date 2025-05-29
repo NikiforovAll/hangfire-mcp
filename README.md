@@ -7,7 +7,7 @@ Enqueue background jobs using Hangfire MCP server.
 Interaction with *Hangfire* using *Hangfire MCP Server* allows you to enqueue jobs from any client that supports MCP protocol.
 For example, you can use Hangfire MCP directly from *VS Code* in *Agent Mode* and enqueue jobs. It makes possible to execute any kind of code without writing additional code.
 
-<video src="https://github.com/user-attachments/assets/3d1d8e37-6c89-4832-89fa-15e965a07ac9" controls="controls"></video>
+<video src="https://github.com/user-attachments/assets/e6abc036-b1f9-4691-a829-65292db5b5e6" controls="controls"></video>
 
 Here is MCP Server configuration for VS Code:
 
@@ -95,7 +95,7 @@ Here is an example of the Hangfire tool:
 public class HangfireTool(IHangfireDynamicScheduler scheduler)
 {
     [McpServerTool(Name = "RunJob")]
-    public string Run(****
+    public string Run(
         [Required] string jobName,
         [Required] string methodName,
         Dictionary<string, object>? parameters = null

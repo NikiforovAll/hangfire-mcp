@@ -17,10 +17,18 @@ var postgresDatabase = postgresServer
         """
     );
 
-builder.AddProject<Projects.Web>("server").WithReference(postgresDatabase).WaitFor(postgresDatabase);
+builder
+    .AddProject<Projects.Web>("server")
+    .WithReference(postgresDatabase)
+    .WaitFor(postgresDatabase);
 
 var mcp = builder
-    .AddProject<Projects.HangfireMCP>("hangfire-mcp")
+    .AddProject<Projects.HangfireMCP_Standalone>("hangfire-mcp")
+    .WithEnvironment(
+        "HANGFIRE_JOBS_ASSEMBLY",
+        @"C:\Users\Oleksii_Nikiforov\dev\hangfire-mcp\samples\HangfireMCP.Standalone\bin\Debug\net9.0\HangfireJobs.dll"
+    )
+    .WithEnvironment("HANGFIRE_JOBS_MATCH_EXPRESSION", "[?IsInterface && contains(Name, 'Job')]")
     .WithReference(postgresDatabase)
     .WaitFor(postgresDatabase);
 

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HangfireMCP.Standalone\HangfireMCP.Standalone.csproj" />
     <ProjectReference Include="..\HangfireMCP\HangfireMCP.csproj" />
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
