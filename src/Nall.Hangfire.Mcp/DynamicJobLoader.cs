@@ -59,7 +59,7 @@ public class DynamicJobLoader(IHangfireDynamicScheduler scheduler, ILogger<Dynam
         {
             if (!File.Exists(this.assemblyPath))
             {
-                logger?.LogError("Assembly file not found: {Path}", this.assemblyPath);
+                logger.LogError("Assembly file not found: {Path}", this.assemblyPath);
                 return false;
             }
 

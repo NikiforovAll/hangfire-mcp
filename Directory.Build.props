@@ -5,6 +5,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>logo.png</PackageIcon>
+    <Authors>Nikiforov Oleksii</Authors>
+    <Description>Hangfire MCP Server</Description>
+    <PackageTags>mcp;hangfire;ai</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -13,5 +17,10 @@
 
   <ItemGroup>
     <None Include="$(RepoRoot)\assets\logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="$(RepoRoot)\README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>

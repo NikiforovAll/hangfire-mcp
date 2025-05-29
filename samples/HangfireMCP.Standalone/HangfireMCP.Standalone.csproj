@@ -9,7 +9,7 @@
 
 
   <PropertyGroup>
-    <PackageId>HangfireMCP</PackageId>
+    <PackageId>Nall.HangfireMCP</PackageId>
     <PackAsTool>true</PackAsTool>
     <ToolName>HangfireMCP</ToolName>
     <ToolCommandName>HangfireMCP</ToolCommandName>
@@ -18,8 +18,6 @@
 
   <PropertyGroup Label="Package">
     <Product>HangfireMCP</Product>
-    <Description></Description>
-    <PackageTags></PackageTags>
   </PropertyGroup>
 
   <!-- Uncomment to enable container publishing - https://learn.microsoft.com/en-us/dotnet/core/containers/sdk-publish -->
