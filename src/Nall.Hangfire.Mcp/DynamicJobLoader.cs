@@ -89,8 +89,12 @@ public class DynamicJobLoader(IHangfireDynamicScheduler scheduler, ILogger<Dynam
     {
         if (this.LoadedAssembly == null)
         {
-            logger.LogWarning("No assembly loaded");
-            this.Initialize();
+            logger.LogWarning("No assembly loaded. Attempting to initialize...");
+            if (!this.Initialize() || this.LoadedAssembly == null)
+            {
+                logger.LogError("Failed to initialize or load assembly. Aborting job discovery.");
+                return [];
+            }
         }
 
         try
@@ -155,11 +159,6 @@ public class DynamicJobLoader(IHangfireDynamicScheduler scheduler, ILogger<Dynam
                 .Select(element => element.GetProperty("FullName").GetString())
                 .Where(name => !string.IsNullOrEmpty(name))
                 .ToList();
-
-            // Now get the actual Types from the assembly
-            var matchedTypes = this
-                .LoadedAssembly.GetTypes()
-                .Where(t => matchedFullNames.Contains(t.FullName));
 
             // Discover jobs from these types
             var jobs = scheduler.DiscoverJobs(

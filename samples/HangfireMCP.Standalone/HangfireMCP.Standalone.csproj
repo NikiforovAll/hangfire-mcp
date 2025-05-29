@@ -9,6 +9,7 @@
 
 
   <PropertyGroup>
+    <PackageId>HangfireMCP</PackageId>
     <PackAsTool>true</PackAsTool>
     <ToolName>HangfireMCP</ToolName>
     <ToolCommandName>HangfireMCP</ToolCommandName>
